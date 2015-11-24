@@ -40,3 +40,13 @@ router.get('/games', function(req, res, next){
   })
 });
 
+// Game-show
+router.get('/games/:id', function(req, res, next){
+  var gameId = req.params.id;
+
+  Game.findById(gameId, function (err,game){
+    if (err) res.json({message : err})
+    res.json({game : game});
+  })
+});
+
