@@ -1,6 +1,7 @@
 var express  = require('express');
 var router   = express.Router();
 var mongoose = require('mongoose');
+var Game = require('../../models/game');
 
 module.exports = function (app) {
   app.use('/', router);
@@ -30,3 +31,4 @@ router.post("/games", authenticatedUser, function(req, res){
     res.json({game : game})
   });
 })
+
