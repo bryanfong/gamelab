@@ -19,3 +19,14 @@ function authenticatedUser(req, res, next) {
 router.get('/secret', authenticatedUser, function (req, res, next) {
   res.json({message: "secret"});
 });
+
+// game-create
+router.post("/games", authenticatedUser, function(req, res){
+  var gameParams = req.body.game;
+  gameParams.createdBy = req.user._id;
+
+  Game.create(gameParams, function (err, game) {
+    if (err) res.json({message : err})
+    res.json({game : game})
+  });
+})
