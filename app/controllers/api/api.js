@@ -32,3 +32,11 @@ router.post("/games", authenticatedUser, function(req, res){
   });
 })
 
+// Game-index
+router.get('/games', function(req, res, next){
+  Game.find({}, function(err, games){
+    if (err) res.json({message : err})
+    res.json({games});
+  })
+});
+
