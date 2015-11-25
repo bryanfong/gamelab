@@ -51,13 +51,23 @@ router.get('/games/:id', function(req, res, next){
 });
 
 // Game-destroy
-router.delete('/games/:id', function(req, res,next){
+
+router.delete('/games/:id', authenticatedUser, function(req, res, next){
+
+  var currentUser = req.user.id;
   var gameId = req.params.id;
 
-  Game.remove({_id: gameId}, function(err){
-    if(err) res.json({message: err});
-    res.json({message: 'game successfully deleted'})
+  Game.findById(gameId, function (err , game){
+    if (err) res.json({message : err})
+    if (currentUser !=  game.createdBy) {
+      res.json({message: "You are not the creator!"});
+    } else {
+      // game.findByIdAndRemove(gameId, function(err){
+      game.remove(function(err){
+      if (err) res.json({message: err})
+      res.json({message: "game has been removed"})
+      });
+    }
   })
-
-});
+})
 
