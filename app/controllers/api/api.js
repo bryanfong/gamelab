@@ -50,3 +50,13 @@ router.get('/games/:id', function(req, res, next){
   })
 });
 
+// // Game-destroy
+// router.delete('/games/:id', function(req, res){
+//   var gameId = req.params.id;
+
+//   Game.remove({_id: gameId}, function(err){
+//     if(err) res.json({message: err});
+//     response.json({message: 'game successfully deleted'})
+//   })
+// });
+
