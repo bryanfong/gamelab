@@ -73,7 +73,7 @@ router.delete('/games/:id', authenticatedUser, function(req, res, next){
 })
 
 // Bookmark - post
-router.post('/bookmarks', authenticatedUser, function(req, res){
+router.post('api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   var params = req.body.bookmark
   params.user_id = currentUserId
@@ -85,7 +85,7 @@ router.post('/bookmarks', authenticatedUser, function(req, res){
 });
 
 // Bookmark - index
-router.get('/bookmarks', authenticatedUser, function(req, res){
+router.get('api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
     if (err) return res.json({message : err})
@@ -93,12 +93,3 @@ router.get('/bookmarks', authenticatedUser, function(req, res){
   })
 })
 
-// router.get('/games/bookmarks', authenticatedUser, function(req, res, next){
-
-//   var currentUser = req.user.id;
-
-//   Bookmark.find({user: currentUser}, function(err, bookmarks){
-//     if (err) res.json({message : err})
-//     res.json({bookmarks : bookmarks});
-//   })
-// });

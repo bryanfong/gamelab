@@ -5,3 +5,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.navbar-brand{
+  position: relative;
+  width: 30px;
+  left: 0;
+  text-align: left;
+  margin: auto;
+  color: #570B08 ;
+}
