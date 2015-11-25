@@ -23,7 +23,7 @@ router.get('/secret', authenticatedUser, function (req, res, next) {
 });
 
 // game-create
-router.post("/games", authenticatedUser, function(req, res){
+router.post("/api/games", authenticatedUser, function(req, res){
   var gameParams = req.body.game;
   gameParams.createdBy = req.user._id;
 
@@ -34,15 +34,15 @@ router.post("/games", authenticatedUser, function(req, res){
 })
 
 // Game-index
-router.get('/games', function(req, res, next){
+router.get('/api/games', function(req, res, next){
   Game.find({}, function(err, games){
     if (err) res.json({message : err})
-    res.json({games});
+    res.json(games);
   })
 });
 
 // Game-show
-router.get('/games/:id', function(req, res, next){
+router.get('/api/games/:id', function(req, res, next){
   var gameId = req.params.id;
 
   Game.findById(gameId, function (err,game){
@@ -53,7 +53,7 @@ router.get('/games/:id', function(req, res, next){
 
 // Game-destroy
 
-router.delete('/games/:id', authenticatedUser, function(req, res, next){
+router.delete('/api/games/:id', authenticatedUser, function(req, res, next){
 
   var currentUser = req.user.id;
   var gameId = req.params.id;
@@ -73,7 +73,7 @@ router.delete('/games/:id', authenticatedUser, function(req, res, next){
 })
 
 // Bookmark - post
-router.post('api/bookmarks', authenticatedUser, function(req, res){
+router.post('/api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   var params = req.body.bookmark
   params.user_id = currentUserId
@@ -85,7 +85,7 @@ router.post('api/bookmarks', authenticatedUser, function(req, res){
 });
 
 // Bookmark - index
-router.get('api/bookmarks', authenticatedUser, function(req, res){
+router.get('/api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
     if (err) return res.json({message : err})
