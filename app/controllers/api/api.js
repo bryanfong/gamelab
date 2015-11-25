@@ -2,6 +2,7 @@ var express  = require('express');
 var router   = express.Router();
 var mongoose = require('mongoose');
 var Game = require('../../models/game');
+var Bookmark = require('../../models/bookmark');
 
 module.exports = function (app) {
   app.use('/', router);
@@ -13,7 +14,7 @@ function authenticatedUser(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    return res.json({message: "Please Login"});
+    return res.status(401).json({message: "Please Login"});
   }
 }
 
@@ -71,3 +72,33 @@ router.delete('/games/:id', authenticatedUser, function(req, res, next){
   })
 })
 
+// Bookmark - post
+router.post('/bookmarks', authenticatedUser, function(req, res){
+  var currentUserId = req.user._id;
+  var params = req.body.bookmark
+  params.user_id = currentUserId
+
+  Bookmark.create(params, function (err, bookmark){
+    if (err) return res.json({message : err})
+    res.json({bookmark: bookmark})
+  })
+});
+
+// Bookmark - index
+router.get('/bookmarks', authenticatedUser, function(req, res){
+  var currentUserId = req.user._id;
+  Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
+    if (err) return res.json({message : err})
+    res.json({bookmarks: bookmarks})
+  })
+})
+
+// router.get('/games/bookmarks', authenticatedUser, function(req, res, next){
+
+//   var currentUser = req.user.id;
+
+//   Bookmark.find({user: currentUser}, function(err, bookmarks){
+//     if (err) res.json({message : err})
+//     res.json({bookmarks : bookmarks});
+//   })
+// });
