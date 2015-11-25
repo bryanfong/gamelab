@@ -10,7 +10,13 @@ router.get('/', function (req, res, next) {
   res.render("games/index");
 });
 
+router.get('/new', function (req, res, next) {
+  res.render("games/new");
+});
+
 router.get('/:id', function (req, res, next) {
   res.render("games/show");
 });
+
+
 

@@ -25,6 +25,14 @@ var API_WRAPPER = function(){
       method: "GET"
     });
   };
+
+  this.createGame = function(params){
+    return $.ajax({
+      url: this.URL_BASE + "/api/games",
+      method: "POST",
+      data: params
+    });
+  };
 };
 
 var API = new API_WRAPPER();
