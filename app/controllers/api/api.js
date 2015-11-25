@@ -47,7 +47,7 @@ router.get('/api/games/:id', function(req, res, next){
 
   Game.findById(gameId, function (err,game){
     if (err) res.json({message : err})
-    res.json({game : game});
+    res.json(game);
   })
 });
 

@@ -9,3 +9,8 @@ module.exports = function (app) {
 router.get('/', function (req, res, next) {
   res.render("games/index");
 });
+
+router.get('/:id', function (req, res, next) {
+  res.render("games/show");
+});
+
