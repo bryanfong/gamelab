@@ -6,6 +6,7 @@ var GameSchema = new Schema({
     category:    { type: String },
     description: { type: String },
     screenshot: { type: String },
+    url: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
