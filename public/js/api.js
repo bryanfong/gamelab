@@ -42,7 +42,7 @@ var API_WRAPPER = function(){
     });
   }
 
-  this.getBookmark = function (params) {
+  this.showBookmark = function (params) {
     return $.ajax({
       url: this.URL_BASE + "/api/bookmarks/id",
       method: "POST",
@@ -57,6 +57,14 @@ var API_WRAPPER = function(){
       data: params
     });
   }
+
+  this.getBookmarks = function () {
+    return $.ajax({
+      url: this.URL_BASE + "/api/bookmarks",
+      method: "GET"
+    });
+  }
+
 };
 
 var API = new API_WRAPPER();

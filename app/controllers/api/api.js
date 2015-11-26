@@ -77,8 +77,8 @@ router.get('/api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
     if (err) return res.json({message : err})
-    res.json({bookmarks: bookmarks})
-  })
+    res.json(bookmarks)
+  }).populate("game_id")
 })
 
 // Bookmark - post

@@ -17,7 +17,7 @@ $(function(){
 
       API.createGame(params).then(function(data){
         console.log(data);
-        window.location.href = "/games/" + data._id;
+        window.location.href = "/games/";
       }, function(error){
         submitted = false;
       })

@@ -25,7 +25,7 @@ $(function(){
   }, errorHandling);
 
   // get bookmark information
-  API.getBookmark(params).then(function (data) {
+  API.showBookmark(params).then(function (data) {
     if (data.message == "Found") {
       UnbookmarkBtnElem.removeClass("hide");
     } else {
