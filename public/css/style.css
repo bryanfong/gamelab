@@ -14,3 +14,9 @@ a {
   margin: auto;
   color: #570B08 ;
 }
+
+#show-img{
+  width: 600px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
