@@ -72,13 +72,20 @@ router.delete('/api/games/:id', authenticatedUser, function(req, res, next){
   })
 })
 
+// Bookmark - index
+router.get('/api/bookmarks', authenticatedUser, function(req, res){
+  var currentUserId = req.user._id;
+  Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
+    if (err) return res.json({message : err})
+    res.json({bookmarks: bookmarks})
+  })
+})
+
 // Bookmark - post
 router.post('/api/bookmarks', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
   var params = req.body.bookmark
   params.user_id = currentUserId
-
-  console.log(params);
 
   Bookmark.findOne(params, function (err, bookmark){
     if (err) return res.json({message : err})
@@ -93,12 +100,35 @@ router.post('/api/bookmarks', authenticatedUser, function(req, res){
   })
 });
 
-// Bookmark - index
-router.get('/api/bookmarks', authenticatedUser, function(req, res){
+// Bookmark - show
+router.post('/api/bookmarks/id', authenticatedUser, function(req, res){
   var currentUserId = req.user._id;
-  Bookmark.find({user_id: currentUserId}, function(err, bookmarks){
+  var params = req.body.bookmark
+  params.user_id = currentUserId
+
+  Bookmark.findOne(params, function (err, bookmark){
     if (err) return res.json({message : err})
-    res.json({bookmarks: bookmarks})
+    if (bookmark){
+      res.status(200).json({message: "Found"})
+    } else {
+      res.status(200).json({message: "Not Found"})
+    }
+  })
+});
+
+// Bookmark - delete
+router.delete('/api/bookmarks/id', authenticatedUser, function(req, res, next){
+  var currentUserId = req.user._id;
+  var params = req.body.bookmark
+  params.user_id = currentUserId
+
+  Bookmark.findOneAndRemove(params, function (err, bookmark){
+    if (err) return res.json({message : err})
+    if (bookmark) {
+      res.status(200).json({message: "Bookmark Deleted"});
+    } else {
+      res.status(404).json({message: "Bookmark not found"});
+    }
   })
 })
 

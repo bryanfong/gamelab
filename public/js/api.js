@@ -41,6 +41,22 @@ var API_WRAPPER = function(){
       data: params
     });
   }
+
+  this.getBookmark = function (params) {
+    return $.ajax({
+      url: this.URL_BASE + "/api/bookmarks/id",
+      method: "POST",
+      data: params
+    })
+  }
+
+  this.deleteBookmark = function (params) {
+    return $.ajax({
+      url: this.URL_BASE + "/api/bookmarks/id",
+      method: "DELETE",
+      data: params
+    });
+  }
 };
 
 var API = new API_WRAPPER();
