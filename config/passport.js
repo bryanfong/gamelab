@@ -4,10 +4,12 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var User             = require(config.root + '/app/models/user');
 
 module.exports = function(passport) {
+//create cookie
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
 
+//decode a cookie to get user id
   passport.deserializeUser(function(id, callback) {
     User.findById(id, function(err, user) {
       callback(err, user); // --> req.user
