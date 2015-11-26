@@ -33,6 +33,14 @@ var API_WRAPPER = function(){
       data: params
     });
   };
+
+  this.createBookmark = function (params) {
+    return $.ajax({
+      url: this.URL_BASE + "/api/bookmarks",
+      method: "POST",
+      data: params
+    });
+  }
 };
 
 var API = new API_WRAPPER();

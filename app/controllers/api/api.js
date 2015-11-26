@@ -78,9 +78,18 @@ router.post('/api/bookmarks', authenticatedUser, function(req, res){
   var params = req.body.bookmark
   params.user_id = currentUserId
 
-  Bookmark.create(params, function (err, bookmark){
+  console.log(params);
+
+  Bookmark.findOne(params, function (err, bookmark){
     if (err) return res.json({message : err})
-    res.json({bookmark: bookmark})
+    if (bookmark){
+      return res.status(400).json({message: "You already bookmark"});
+    } else {
+      Bookmark.create(params, function (err, bookmark){
+        if (err) return res.json({message : err})
+        res.json({bookmark: bookmark})
+      })
+    }
   })
 });
 

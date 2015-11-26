@@ -1,20 +1,44 @@
 $(function(){
+  var game_id = window.location.pathname.split("/")[2];
+
+  var imgElem           = $('#show-img');
+  var titleElem         = $('#show-title');
+  var descriptionElem   = $('#show-description');
+  var playBtnElem       = $('#show-play-btn');
+  var BookmarkBtnElem   = $('#show-bookmark-btn');
+  var UnbookmarkBtnElem = $('#show-unbookmark-btn');
+
   API.showGame().then(function (game) {
     console.log(game);
-    $('#gameDetails').append('\
-        <div class="col-sm-12 col-md-12">\
-          <div class="thumbnail">\
-            <img src="' + game.screenshot + '">\
-            <div class="caption">\
-              <h3>' + game.title + '</h3>\
-              <p>' + game.description + '</p>\
-              <p><a href="' + game.url +'" class="btn btn-primary" role="button">Play Now</a>\
-            </div>\
-          </div>\
-        </div>\
-      ')
 
+    imgElem.attr("src", game.screenshot);
+    titleElem.html(game.title);
+    descriptionElem.html(game.description);
+    playBtnElem.attr("href", game.url);
+  }, errorHandling);
+
+  BookmarkBtnElem.on('click', function (e) {
+    e.preventDefault();
+
+    BookmarkBtnElem.addClass("hide");
+    UnbookmarkBtnElem.removeClass("hide");
+
+    var params = {
+      bookmark: {
+        game_id: game_id
+      }
+    }
+
+    API.createBookmark(params).then(function (data) {
+      console.log(data)
+    }, errorHandling)
   })
-  // }, errorHandling);
+
+  UnbookmarkBtnElem.on('click', function (e) {
+    e.preventDefault();
+
+    BookmarkBtnElem.removeClass("hide");
+    UnbookmarkBtnElem.addClass("hide");
+  })
 
 })

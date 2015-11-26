@@ -2,8 +2,21 @@
 
 <div class="container-fluid">
   <div class="row" id="gameDetails">
+    <div class="col-sm-12 col-md-12">
+      <div class="thumbnail">
+        <img id="show-img" src="">
+        <div class="caption">
+          <h3 id="show-title"></h3>
+          <p id="show-description"></p>
+          <a id="show-play-btn" href="" class="btn btn-primary" role="button">Play Now</a>
+          <% if (user) { %>
+            <a id="show-bookmark-btn" href="" class="btn btn-primary" role="button">Bookmark</a>
+            <a id="show-unbookmark-btn" href="" class="btn btn-danger hide" role="button">Un-bookmark</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
 
 <script src = "/js/games/show.js"></script>
